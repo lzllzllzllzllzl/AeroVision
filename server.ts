@@ -18,8 +18,11 @@ async function startServer() {
   app.post("/api/predict-price", async (req, res) => {
     try {
       const { prompt } = req.body;
-      const apiKey = process.env.DOUBAO_API_KEY || "baeac3bb-34b5-4033-bba4-b9defd1113cb"; 
+      // Check multiple env vars for the key, matching user's python script convention (ARK_API_KEY)
+      const apiKey = process.env.ARK_API_KEY || process.env.DOUBAO_API_KEY || "baeac3bb-34b5-4033-bba4-b9defd1113cb"; 
       
+      console.log("Using API Key ending in:", apiKey.slice(-4)); // Log for debugging (safe)
+
       const client = new OpenAI({
         apiKey: apiKey,
         baseURL: "https://ark.cn-beijing.volces.com/api/v3",
@@ -38,10 +41,12 @@ async function startServer() {
       res.json(response);
     } catch (error: any) {
       console.error("Doubao API Error:", error);
+      // Send more detailed error to client for debugging
       res.status(500).json({ 
         error: "Failed to fetch prediction", 
-        details: error.message,
-        mock: true 
+        details: error.message || error.toString(),
+        type: error.type || 'Unknown',
+        code: error.code || 'Unknown'
       });
     }
   });

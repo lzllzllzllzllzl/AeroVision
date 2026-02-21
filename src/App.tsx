@@ -226,9 +226,10 @@ export default function App() {
                       "Unable to generate prediction at this time.";
                       
       setPrediction(content);
-    } catch (err) {
-      console.error(err);
-      setPrediction("AI Analysis unavailable. Based on historical trends, prices are volatile.");
+    } catch (err: any) {
+      console.error("Prediction Error:", err);
+      const errorDetails = err.response?.data?.details || err.message;
+      setPrediction(`Analysis Error: ${errorDetails}. Please check API Key configuration.`);
     } finally {
       setPredicting(false);
     }
