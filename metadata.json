@@ -1,5 +1,5 @@
 {
   "name": "AeroVision",
-  "description": "Advanced flight price tracking and prediction dashboard utilizing AI and weather data.",
+  "description": "Advanced flight price tracking and prediction dashboard utilizing Volcengine Doubao AI.",
   "requestFramePermissions": []
 }
