@@ -1,0 +1,5 @@
+{
+  "name": "AeroVision",
+  "description": "Advanced flight price tracking and prediction dashboard utilizing AI and weather data.",
+  "requestFramePermissions": []
+}
